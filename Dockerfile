@@ -32,13 +32,13 @@ RUN a2enmod ssl
 #RUN usermod -aG root www-data
 
 #install PDF creator wkhtmltopdf with dependencies
-RUN apt-get install -y xvfb xfonts-75dpi xfonts-base libxrender1 fontconfig
-RUN cd /opt/ && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
-    ; tar -xvf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
-    ; cp ./wkhtmltox/bin/wkhtmltoimage /usr/bin/ \
-    ; cp ./wkhtmltox/bin/wkhtmltopdf /usr/bin/ \
-    ; rm -rf /opt/* \
-    ; rm -r /var/lib/apt/lists/*
+#RUN apt-get install -y xvfb xfonts-75dpi xfonts-base libxrender1 fontconfig
+#RUN cd /opt/ && wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+#    ; tar -xvf wkhtmltox-0.12.4_linux-generic-amd64.tar.xz \
+#    ; cp ./wkhtmltox/bin/wkhtmltoimage /usr/bin/ \
+#    ; cp ./wkhtmltox/bin/wkhtmltopdf /usr/bin/ \
+#    ; rm -rf /opt/* \
+#    ; rm -r /var/lib/apt/lists/*
 
 #copy the config files for apache2-debian
 #COPY ./config/apache2/000-default.conf /etc/apache2/sites-enabled/000-default.conf
@@ -52,7 +52,7 @@ RUN chmod -R 777 *
 
 
 #variable to change the document root folder
-ENV APACHE_DOCUMENT_ROOT /var/www/html/www
+ENV APACHE_DOCUMENT_ROOT /var/www/html
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 RUN sed -ri -e 's!/var/www!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 #RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
